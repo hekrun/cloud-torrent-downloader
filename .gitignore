@@ -1,0 +1,7 @@
+# Local runtime state and downloaded content
+downloads/
+downloads_new/
+.cloud-torrent-data/
+.torrent-metadata/
+torrents.json
+cloud-torrent.json
