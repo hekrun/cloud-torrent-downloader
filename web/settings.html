@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6f2">
+  <title>Settings / Cloud Torrent</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell settings-page">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Cloud Torrent home"><span class="brand-mark">CT</span><span>cloud torrent</span></a>
+      <div class="topbar-right"><span class="status-dot"></span><span>Engine online</span><a class="settings-link active" href="/settings.html">Settings</a></div>
+    </header>
+    <section class="settings-hero">
+      <p class="eyebrow">ENGINE CONTROL</p>
+      <h1>Shape your<br><em>download space.</em></h1>
+      <p class="lede">Choose where files live and decide whether completed torrents can share back with their peers.</p>
+    </section>
+    <section class="settings-card">
+      <div class="section-heading"><div><p class="eyebrow">STORAGE</p><h2>Download location</h2></div><span class="provider-note">Local server path</span></div>
+      <form id="settings-form">
+        <label class="settings-field">Download path<input id="download-path" type="text" placeholder="/path/to/downloads" required><small>Absolute or workspace-relative path on the server.</small></label>
+        <div class="settings-divider"></div>
+        <div class="setting-option"><div><strong>Allow upload to peers</strong><p>Let other peers receive pieces from this engine.</p></div><label class="toggle"><input id="upload-enabled" type="checkbox"><span></span></label></div>
+        <div class="setting-option"><div><strong>Seed completed torrents</strong><p>Keep completed downloads available for sharing.</p></div><label class="toggle"><input id="seeding-enabled" type="checkbox"><span></span></label></div>
+        <div class="settings-actions"><a class="secondary-button" href="/">Back to library</a><button class="primary-button" type="submit">Save settings <span>-></span></button></div>
+        <p id="settings-message" class="form-message" role="status"></p>
+      </form>
+    </section>
+      <section class="storage-card">
+        <div class="section-heading"><div><p class="eyebrow">SERVER STORAGE</p><h2>Disk space</h2></div><span class="provider-note">Download volume</span></div>
+        <div class="disk-meter"><span id="disk-bar"></span></div>
+        <div class="disk-stats"><div><small>Used</small><strong id="disk-used">--</strong></div><div><small>Free</small><strong id="disk-free">--</strong></div><div><small>Total</small><strong id="disk-total">--</strong></div></div>
+      </section>
+    <footer><span>Cloud Torrent / engine settings</span><span>Changes apply after restart.</span></footer>
+  </main>
+  <script src="/settings.js"></script>
+</body>
+</html>

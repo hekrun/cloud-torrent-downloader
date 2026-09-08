@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6f2">
+  <title>Cloud Torrent</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Cloud Torrent home"><span class="brand-mark">CT</span><span>cloud torrent</span></a>
+      <div class="topbar-right"><span class="status-dot"></span><span>Engine online</span><a class="settings-link" href="/settings.html">Settings</a><button class="icon-button" id="refresh" title="Refresh library" aria-label="Refresh library">↻</button></div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow">PERSONAL DOWNLOAD ENGINE</p>
+        <h1>Move the internet<br><em>to your shelf.</em></h1>
+        <p class="lede">A quiet, fast home for your torrent queue. Search, add a magnet, and let the engine handle the rest.</p>
+      </div>
+      <div class="hero-orbit" aria-hidden="true"><span></span><b>LOCAL<br>FIRST</b></div>
+    </section>
+
+    <section class="add-panel" aria-label="Add a torrent">
+      <div class="input-wrap"><span class="input-icon">+</span><input id="magnet" type="text" placeholder="Paste a magnet link to begin..." autocomplete="off"><button id="add" class="primary-button">Add torrent <span>-></span></button></div>
+      <div class="upload-row"><label class="upload-button" for="torrent-file">+ Add .torrent file<input id="torrent-file" type="file" accept=".torrent,application/x-bittorrent"></label><span id="upload-message" class="form-message"></span></div>
+      <p id="add-message" class="form-message" role="status"></p>
+    </section>
+
+    <nav class="tabs" aria-label="Library views"><button class="tab active" data-filter="all">Library <span id="library-count">0</span></button><button class="tab" data-filter="downloading">Downloading</button><button class="tab" data-filter="complete">Complete</button></nav>
+
+    <section class="library-section">
+      <div class="section-heading"><div><p class="eyebrow">YOUR LIBRARY</p><h2>Active transfers</h2></div><span class="updated" id="last-updated">Waiting for activity</span></div>
+      <div id="torrent-list" class="torrent-list"><div class="empty-state"><div class="empty-icon">+</div><h3>Your shelf is clear</h3><p>Add a magnet link above and your next download will appear here.</p></div></div>
+    </section>
+
+    <section class="search-section">
+      <div class="section-heading"><div><p class="eyebrow">DISCOVER</p><h2>Search the open web</h2></div><span class="provider-note">Two provider index</span></div>
+      <form id="search-form" class="search-bar"><input id="query" type="search" placeholder="Try a title, artist, or keyword..."><select id="provider" aria-label="Search provider"><option value="all">All providers</option><option value="archive">Internet Archive</option><option value="librivox">LibriVox</option><option value="piratebay">Pirate Bay</option><option value="nyaa">Nyaa</option></select><button class="primary-button" type="submit">Search <span>-></span></button></form>
+      <div id="search-results" class="search-results"></div>
+    </section>
+
+    <footer><span>Cloud Torrent / local engine</span><span id="footer-disk">Storage: checking...</span><span>Download responsibly.</span></footer>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
