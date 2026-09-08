@@ -18,11 +18,20 @@ Install Docker and Compose on the VPS, then run:
 ```bash
 git clone https://github.com/hekrun/cloud-torrent-downloader.git
 cd cloud-torrent-downloader
-docker compose up -d --build
+docker compose pull
+docker compose up -d
 docker compose logs -f
 ```
 
 Open `http://YOUR_VPS_IP:8080`. The Compose volume `cloud-torrent-data` persists downloads, engine databases, settings, and the torrent library across container restarts. Stop it with `docker compose down`; start it again with `docker compose up -d`.
+
+Every push to `main` publishes a new image to GitHub Container Registry:
+
+```text
+ghcr.io/hekrun/cloud-torrent-downloader:latest
+```
+
+The package must be set to public once in GitHub under `Packages`. For Docker Hub instead, create a repository such as `YOUR_DOCKERHUB_USER/cloud-torrent-downloader`, add `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` as GitHub Actions secrets, and change the compose `image` to that repository.
 
 Use the `Settings` link in the top bar or open http://localhost:8080/settings.html to configure the server download path, peer uploads, and completed-torrent seeding. These engine settings are applied after restarting the server.
 

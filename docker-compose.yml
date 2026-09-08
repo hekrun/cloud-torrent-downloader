@@ -1,6 +1,7 @@
 services:
   cloud-torrent:
-    build: .
+    image: ghcr.io/hekrun/cloud-torrent-downloader:latest
+    pull_policy: always
     container_name: cloud-torrent
     restart: unless-stopped
     ports:
