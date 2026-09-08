@@ -1,6 +1,6 @@
 # Cloud Torrent
 
-A modern, local-first torrent dashboard inspired by the engine model of `jpillora/cloud-torrent`. It uses Go and `github.com/anacrolix/torrent` for the download engine, with a small provider layer for Pirate Bay's API and Nyaa search pages.
+A modern, local-first torrent dashboard inspired by the engine model of `jpillora/cloud-torrent`. It uses Go and `github.com/anacrolix/torrent` for the download engine, with a small provider layer for Pirate Bay's API and Nyaa search pages. It a self-hosted modern UI cloud torrent client platform on your VPS.
 
 ## Run
 
