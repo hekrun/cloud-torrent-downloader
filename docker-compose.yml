@@ -5,12 +5,10 @@ services:
     container_name: cloud-torrent
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "3000:3000"
     environment:
       DOWNLOAD_DIR: /data/downloads
       STATE_DIR: /data/state
     volumes:
-      - cloud-torrent-data:/data
-
-volumes:
-  cloud-torrent-data:
+      # REPLACE the left side with the exact path on your machine where you want files to save
+      - ./data:/data
