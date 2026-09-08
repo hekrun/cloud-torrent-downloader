@@ -91,7 +91,11 @@ func main() {
 	if err := os.MkdirAll(root, 0o755); err != nil {
 		log.Fatal(err)
 	}
-	engineDir := ".cloud-torrent-data"
+	stateDir := stateDirectory()
+	if err := os.MkdirAll(stateDir, 0o755); err != nil {
+		log.Fatal(err)
+	}
+	engineDir := filepath.Join(stateDir, ".cloud-torrent-data")
 	if err := os.MkdirAll(engineDir, 0o755); err != nil {
 		log.Fatal(err)
 	}
@@ -149,16 +153,23 @@ func moveLegacyEngineFiles(downloadPath, enginePath string) {
 
 func loadSettings() settings {
 	config := settings{DownloadPath: "./downloads", Seeding: false, Upload: false}
-	data, err := os.ReadFile("cloud-torrent.json")
+	data, err := os.ReadFile(filepath.Join(stateDirectory(), "cloud-torrent.json"))
 	if err == nil {
 		_ = json.Unmarshal(data, &config)
 	}
 	return config
 }
 
+func stateDirectory() string {
+	if value := os.Getenv("STATE_DIR"); value != "" {
+		return value
+	}
+	return "."
+}
+
 func loadTorrentRecords() map[string]torrentRecord {
 	records := make(map[string]torrentRecord)
-	data, err := os.ReadFile("torrents.json")
+	data, err := os.ReadFile(filepath.Join(stateDirectory(), "torrents.json"))
 	if err == nil {
 		_ = json.Unmarshal(data, &records)
 	}
@@ -170,7 +181,7 @@ func (a *app) saveTorrentRecords() {
 	data, err := json.MarshalIndent(a.records, "", "  ")
 	a.mu.RUnlock()
 	if err == nil {
-		_ = os.WriteFile("torrents.json", data, 0o644)
+		_ = os.WriteFile(filepath.Join(stateDirectory(), "torrents.json"), data, 0o644)
 	}
 }
 
@@ -234,7 +245,7 @@ func (a *app) handleSettings(w http.ResponseWriter, r *http.Request) {
 	}
 	next.DownloadPath = path
 	data, err := json.MarshalIndent(next, "", "  ")
-	if err != nil || os.WriteFile("cloud-torrent.json", data, 0o644) != nil {
+	if err != nil || os.WriteFile(filepath.Join(stateDirectory(), "cloud-torrent.json"), data, 0o644) != nil {
 		writeError(w, http.StatusInternalServerError, "could not save settings")
 		return
 	}
@@ -377,7 +388,7 @@ func (a *app) handleTorrentFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	hash := t.InfoHash().HexString()
-	metaDir := ".torrent-metadata"
+	metaDir := filepath.Join(stateDirectory(), ".torrent-metadata")
 	if err := os.MkdirAll(metaDir, 0o755); err != nil {
 		writeError(w, http.StatusInternalServerError, "could not save torrent metadata")
 		return

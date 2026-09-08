@@ -1,0 +1,10 @@
+.git
+.gitignore
+downloads/
+downloads_new/
+.cloud-torrent-data/
+.torrent-metadata/
+cloud-torrent.json
+torrents.json
+*.iso
+*.part

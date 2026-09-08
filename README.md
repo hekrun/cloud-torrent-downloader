@@ -11,6 +11,19 @@ go run .
 
 Open http://localhost:8080. Downloads are written to `./downloads` by default. Set `DOWNLOAD_DIR` to choose another directory.
 
+## Docker on a VPS
+
+Install Docker and Compose on the VPS, then run:
+
+```bash
+git clone https://github.com/hekrun/cloud-torrent-downloader.git
+cd cloud-torrent-downloader
+docker compose up -d --build
+docker compose logs -f
+```
+
+Open `http://YOUR_VPS_IP:8080`. The Compose volume `cloud-torrent-data` persists downloads, engine databases, settings, and the torrent library across container restarts. Stop it with `docker compose down`; start it again with `docker compose up -d`.
+
 Use the `Settings` link in the top bar or open http://localhost:8080/settings.html to configure the server download path, peer uploads, and completed-torrent seeding. These engine settings are applied after restarting the server.
 
 ## Included
